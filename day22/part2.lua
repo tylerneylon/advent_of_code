@@ -1,6 +1,6 @@
 #!/usr/local/bin/lua
 
--- day22/part1.lua
+-- day22/part2.lua
 
 -- Parameters.
 
@@ -81,6 +81,15 @@ function did_player_win(next_spell, pr)
     pr('-- ' .. whose_turn .. ' turn --')
     pr('- Player has ' .. p.hp .. ' hit points, ' .. p.mana .. ' mana')
     pr('- Boss has ' .. b.hp .. ' hit points')
+
+    -- Player loses a point on their turn.
+    if whose_turn == 'Player' then
+      p.hp = p.hp - 1
+      if p.hp <= 0 then
+        pr('Player perishes, drowned by the futility that is existence.')
+        return false, mana_cost, i
+      end
+    end
 
     -- Handle all effects.
     p.armor = 0
